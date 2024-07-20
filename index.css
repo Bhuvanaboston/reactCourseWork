@@ -41,3 +41,8 @@
   width: 100%;
   height: 50%;
 }
+
+.fiter-btn {
+  margin: 10px;
+  cursor: pointer;
+}

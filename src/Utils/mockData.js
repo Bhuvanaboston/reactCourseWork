@@ -1,6 +1,4 @@
-import ResCard from './ResCard';
-
-const Restaurant = {
+export const Restaurant = {
   restaurants: [
     {
       info: {
@@ -647,20 +645,3 @@ const Restaurant = {
     },
   ],
 };
-
-const Body = () => {
-  return (
-    <div className="body">
-      <div className="Search">Search</div>
-      <div className="res-container">
-        {Restaurant.restaurants.map((card) => (
-          <ResCard key={card.info.id} resData={card} />
-        ))}
-
-        {/*RestaurantCard*/}
-      </div>
-    </div>
-  );
-};
-
-export default Body;
