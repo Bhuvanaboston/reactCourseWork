@@ -6,3 +6,5 @@ export const CLOUD_URL =
 
 export const SWIGGY_URL =
   'https://www.swiggy.com/dapi/restaurants/list/v5?lat=13.0410013&lng=80.1993919&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING';
+export const RESMENU_URL =
+  'https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=13.0410013&lng=80.1993919&restaurantId=';
