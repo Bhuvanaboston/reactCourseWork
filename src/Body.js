@@ -1,33 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ResCard from './ResCard';
-import { SWIGGY_URL } from './Utils/constants';
 import Shimmer from './Shimmer';
 import { Link } from 'react-router-dom';
+import useRestaurent from './Utils/useRestaurent';
 
+import useOnlinestatus from './Utils/useOnlinestatus';
 const Body = () => {
-  const [restList, setRestList] = useState([]);
-  const [filteredRestList, setFilteredRestList] = useState([]);
   const [searchText, setSearchText] = useState('');
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    const data = await fetch(SWIGGY_URL);
-    const json = await data.json();
-    setRestList(
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-    setFilteredRestList(
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-  };
-
+  const [restList, filteredRestList] = useRestaurent();
+  const Onlinestatus = useOnlinestatus();
   /*conditional rendering
   if (restList.length === 0) {
     return <Shimmer />;
   }*/
+
+  if (Onlinestatus === false) return <h1>You are not connected to internet</h1>;
   return restList.length === 0 ? (
     <Shimmer />
   ) : (
