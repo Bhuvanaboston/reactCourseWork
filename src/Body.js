@@ -1,15 +1,19 @@
-import { useState } from 'react';
-import ResCard from './ResCard';
+import { useState, useContext } from 'react';
+import ResCard, { withAggregatedDiscount } from './ResCard';
 import Shimmer from './Shimmer';
 import { Link } from 'react-router-dom';
 import useRestaurent from './Utils/useRestaurent';
+import UserContext from './Utils/UserContext';
 
 import useOnlinestatus from './Utils/useOnlinestatus';
 const Body = () => {
   const [searchText, setSearchText] = useState('');
-
+  const [customUserName] = useState('');
   const [restList, filteredRestList] = useRestaurent();
   const Onlinestatus = useOnlinestatus();
+  const { loggedInUser, setUserData } = useContext(UserContext);
+
+  const RestaurentWithDiscount = withAggregatedDiscount(ResCard);
   /*conditional rendering
   if (restList.length === 0) {
     return <Shimmer />;
@@ -60,12 +64,25 @@ const Body = () => {
             Top Rated Restaurants
           </button>
         </div>
+        <div className="m-4 p-4 flex items-center">
+          User Name:
+          <input
+            type="text"
+            className="border border-solid border-black m-4 p-2"
+            value={loggedInUser}
+            onChange={(e) => setUserData(e.target.value)}
+          />
+        </div>
       </div>
 
       <div className="flex flex-wrap  m-4 shadow-lg bg-slate-100">
         {filteredRestList.map((card) => (
           <Link to={'/restaurentmenu/' + card.info.id} key={card.info.id}>
-            <ResCard resData={card} />
+            {card.info.aggregatedDiscountInfoV3 ? (
+              <RestaurentWithDiscount resData={card} />
+            ) : (
+              <ResCard resData={card} />
+            )}
           </Link>
         ))}
       </div>

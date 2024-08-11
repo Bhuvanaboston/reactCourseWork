@@ -1,4 +1,6 @@
 import { CLOUD_URL } from './Utils/constants';
+import { useContext, useEffect } from 'react';
+import UserContext from './Utils/UserContext';
 
 const ResCard = (props) => {
   const {
@@ -27,4 +29,19 @@ const ResCard = (props) => {
   );
 };
 
+//Higher Order Component
+//input- ResCard optput- ResCard that is aggregatedDiscountInfoV3
+
+export const withAggregatedDiscount = (ResCard) => {
+  return (props) => {
+    return (
+      <div>
+        <label className="absolute bg-black text-white m-1 p-1 rounded-lg">
+          Promoted
+        </label>
+        <ResCard {...props} />
+      </div>
+    );
+  };
+};
 export default ResCard;
